@@ -1,0 +1,50 @@
+@keyframes rotate {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(1080deg);
+    }
+}
+body {
+    overflow-x: hidden;
+}
+.background-pos {
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    right: 0px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.background-color{
+    background: conic-gradient(blue,red,green,blue);
+    width: 8000px;
+    height: 10000px;
+    top: -4500px;
+    left: -3500px;
+    animation-name: rotate;
+    background-size: cover;
+    animation-duration: 20s;
+    animation-iteration-count: infinite;
+    position: absolute;
+}
+.background-pic{
+    background-image: url("./asd.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 95%;
+    width: 98%;
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.title {
+    font-size: 75px;
+    font-weight: 900;
+    color:white
+}
