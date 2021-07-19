@@ -8,12 +8,9 @@ module.exports = {
 
       Example:
       */
-     return queryInterface.bulkInsert('Comments', [{
-        userId: "1",
-        photoId: "2",
-        createdAt: new Date(),
-        updatedAt: new Date(),
-     }], {});
+     return queryInterface.bulkInsert('Comments', [
+       {userId: 1, photoId: 1, comment:"blah", createdAt: new Date(), updatedAt: new Date()}
+     ], {});
     },
 
   down: (queryInterface, Sequelize) => {

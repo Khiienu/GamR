@@ -1,0 +1,16 @@
+.navbar {
+    display:flex;
+    justify-content: space-around;
+    align-content: space-around;
+    flex-direction: row;
+    background-color: black;
+}
+.home-btn {
+    background-color: blue;
+}
+.login-btn {
+    background-color: blue;
+}
+.signup-btn {
+    background-color: blue;
+}

@@ -8,11 +8,9 @@ module.exports = {
 
       Example:
       */
-     return queryInterface.bulkInsert('Albums', [{
-      userId: "1",
-      createdAt: new Date(),
-      updatedAt: new Date(),
-     }], {});
+     return queryInterface.bulkInsert('Albums',[
+       {userId: 1, albumName: "Test", createdAt: new Date(), updatedAt: new Date()}
+      ] ,{});
     },
 
   down: (queryInterface, Sequelize) => {

@@ -16,6 +16,7 @@ function Homepage() {
                     Try for free
                 </button>
             </div>
+            <div className="aboutme">About me</div>
         </div>      
     )
 }
