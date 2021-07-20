@@ -8,12 +8,17 @@ import './photo.css'
 export default function Photo() {
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
-    const photos = useSelector(state => state.photos);
+    const photos = useSelector(state =>state.photos);
     const { id } = useParams();
 
+    console.log(photos)
+    
     useEffect(() => {
         dispatch(getAllPhotos())
     }, [dispatch])
+    if(!photos) {
+        return null;
+    }
     return (
         <div className="single-container">
             {photos.map((photo) => (

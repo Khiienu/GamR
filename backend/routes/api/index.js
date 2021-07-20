@@ -7,11 +7,13 @@ const { User } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth.js');
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
+const photosRouter = require('./photo.js');
 
 router.use('/session', sessionRouter);
 
 router.use('/users', usersRouter);
 
+router.use('/photos', photosRouter);
 
 
 router.post('/test', function(req, res) {

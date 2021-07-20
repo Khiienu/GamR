@@ -11,13 +11,6 @@ const getPhotos = (photos) => {
 
 //Thunk
 
-// export const getAllPhotos = () => async(dispatch) => {
-//     const allPhotos = await csrfFetch(`/api/photo`)
-//     const photos = await allPhotos.json()
-//     if( allPhotos.ok ) {
-//         dispatch(getPhotos(photos))
-//     }
-// }
 
 export const  getAllPhotos = () => async (dispatch) => {
     const res = await csrfFetch(`/api/photos`)
@@ -25,6 +18,7 @@ export const  getAllPhotos = () => async (dispatch) => {
     if( res.ok ){
         const photo = await res.json()
         dispatch(getPhotos(photo))
+        return photo
     }
 }
 
@@ -35,7 +29,8 @@ const photosReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_PHOTOS:
             const allPhotos = {}
-            action.photos.forEach(photo => {
+            console.log(action.photos.picture)
+            action.photos.picture.forEach(photo => {
                 allPhotos[photo.id] = photo
             });
             return {
