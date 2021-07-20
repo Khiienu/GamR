@@ -19,13 +19,12 @@ const getPhotos = (photos) => {
 //     }
 // }
 
-export const  getAllPhotos = (id) => async (dispatch) => {
-    const res = await csrfFetch(`/api/photo/${id}`)
+export const  getAllPhotos = () => async (dispatch) => {
+    const res = await csrfFetch(`/api/photos`)
 
     if( res.ok ){
         const photo = await res.json()
         dispatch(getPhotos(photo))
-        return photo
     }
 }
 
@@ -35,11 +34,14 @@ export const  getAllPhotos = (id) => async (dispatch) => {
 const photosReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_PHOTOS:
-            const allPhotos = {...state}
+            const allPhotos = {}
             action.photos.forEach(photo => {
                 allPhotos[photo.id] = photo
             });
-            return allPhotos;
+            return {
+                ...state,
+                ...allPhotos
+            };
         default:
             return state;
     }

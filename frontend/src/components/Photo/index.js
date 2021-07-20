@@ -8,7 +8,7 @@ import './photo.css'
 export default function Photo() {
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
-    const pictures = useSelector(state => Object.values(state.photos));
+    const photos = useSelector(state => state.photos);
     const { id } = useParams();
 
     useEffect(() => {
@@ -16,11 +16,9 @@ export default function Photo() {
     }, [dispatch])
     return (
         <div className="single-container">
-            {pictures.map((picture) => (
-                <div>{picture.picture}</div>
+            {photos.map((photo) => (
+                <div>{photo.picture}</div>
             ))}
-            {/* <img className='picture'/>
-            <div className='image-caption'></div> */}
         </div>
     )
 }
