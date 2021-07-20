@@ -1,15 +1,18 @@
+import { csrfFetch } from './csrf';
 const GET_PHOTOS = 'photos/GET_PHOTOS';
 
 //action_creator
-const getPhotos = (photos) => ({
-    type: GET_PHOTOS,
-    photos,
-})
+const getPhotos = (photos) => {
+    return {
+        type: GET_PHOTOS,
+        photos
+    }
+}
 
 //Thunk
 
-export const getAllPhotos = () => async(dispatch) => {
-    const allPhotos = await fetch("/photos")
+export const getAllPhotos = (id) => async(dispatch) => {
+    const allPhotos = await csrfFetch(`/api/photo/${id}`)
     const photos = await allPhotos.json()
     if( allPhotos.ok ) {
         dispatch(getPhotos(photos))
