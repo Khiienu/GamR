@@ -8,6 +8,7 @@ const { requireAuth } = require('../../utils/auth.js');
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const photosRouter = require('./photo.js');
+const singlePhotoRouter = require('./singlePhoto');
 
 router.use('/session', sessionRouter);
 
@@ -15,6 +16,7 @@ router.use('/users', usersRouter);
 
 router.use('/photos', photosRouter);
 
+router.use('/singlephoto', singlePhotoRouter)
 
 router.post('/test', function(req, res) {
     res.json({ requestBody: req.body });

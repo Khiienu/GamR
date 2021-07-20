@@ -8,7 +8,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Homepage from "./components/Homepage";
 import Photo from "./components/Photo"
-
+import SingleImage from "./components/SingleImage";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -32,6 +32,9 @@ function App() {
           </Route>
           <Route path="/photos">
             <Photo />
+          </Route>
+          <Route path="/singlephoto">
+            <SingleImage />
           </Route>
         </Switch>
       )}

@@ -2,31 +2,25 @@ import { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllPhotos } from '../../store/photo'
-import './photo.css'
 
 
-
-export default function Photo() {
+export default function SingleImage() {
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
     const photos = useSelector(state => Object.values(state.photo));
     const { id } = useParams();
+    // const makeOtherId = other.id
 
-    console.log(photos)
-    
+    const photo = photos[0]
     useEffect(() => {
-        dispatch(getAllPhotos())
+        dispatch(getAllPhotos(id))
     }, [dispatch])
-    if(!photos) {
-        return null;
-    }
-    return (
-        <div className="single-container">
-            {photos.map((photo) => (
-                <div>
-                    <img src={photo.picture}/>
-                </div>
-            ))}
-        </div>
-    )
+
+
+return (
+    <div className="image-container">
+        <img className="single-photo" src={photo?.picture} />
+        <div className="photo-caption">{photo?.caption}</div>
+    </div>
+)
 }
