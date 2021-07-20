@@ -11,11 +11,21 @@ const getPhotos = (photos) => {
 
 //Thunk
 
-export const getAllPhotos = (id) => async(dispatch) => {
-    const allPhotos = await csrfFetch(`/api/photo/${id}`)
-    const photos = await allPhotos.json()
-    if( allPhotos.ok ) {
-        dispatch(getPhotos(photos))
+// export const getAllPhotos = () => async(dispatch) => {
+//     const allPhotos = await csrfFetch(`/api/photo`)
+//     const photos = await allPhotos.json()
+//     if( allPhotos.ok ) {
+//         dispatch(getPhotos(photos))
+//     }
+// }
+
+export const  getAllPhotos = (id) => async (dispatch) => {
+    const res = await csrfFetch(`/api/photo/${id}`)
+
+    if( res.ok ){
+        const photo = await res.json()
+        dispatch(getPhotos(photo))
+        return photo
     }
 }
 

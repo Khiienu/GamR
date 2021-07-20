@@ -6,13 +6,9 @@ const { User, Photo} = require("../../db/models")
 const router = express.Router();
 
 router.get('/photos', asyncHandler( async (req, res) => {
-    // const id= parseInt(req.params.id);
-    const image = await Photo.findAll()
-    return res.json(image)
+    const id= parseInt(req.params.id);
+    const picture = await Photo.findByPk(id)
+    return res.json(picture)
 }))
 
-let currentUser;
-if (req.session.auth) {
-  currentUser = req.session.auth.id;
-}
 module.exports = router;
