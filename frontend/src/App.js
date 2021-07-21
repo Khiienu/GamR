@@ -8,6 +8,8 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Homepage from "./components/Homepage";
 import Photo from "./components/Photo"
+import SingleImage from "./components/SingleImage";
+import Upload from "./components/UploadImage";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,8 +32,14 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
-          <Route path="/photos">
+          <Route exact path="/photos">
             <Photo />
+          </Route>
+          <Route path="/photos/:id">
+            <SingleImage />
+          </Route>
+          <Route path="/upload">
+            <Upload />
           </Route>
         </Switch>
       )}

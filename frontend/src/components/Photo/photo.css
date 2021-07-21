@@ -1,0 +1,38 @@
+.photo-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.pic-wrapper {
+    height: 300px;
+    width: 300px;
+}
+
+.pic {
+    height: 100%;
+    width: 100%;
+}
+
+.upload-link {
+    height: 30px;
+    width: 30px;
+}
+.single-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.upload-header {
+    background-color: blueviolet;
+    border: 1px solid black;
+    padding: 2px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    margin: 10px;
+}
