@@ -1,0 +1,15 @@
+.photo-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.pic-wrapper {
+    height: 300px;
+    width: 300px;
+}
+
+.pic {
+    height: 100%;
+    width: 100%;
+}

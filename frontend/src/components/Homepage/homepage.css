@@ -57,11 +57,13 @@ body {
 
 .aboutme {
     overflow: hidden;
-    background-color: black;
+    background-color: chocolate;
     position: absolute;
     bottom: 0px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    width: 100%;
+    height: 10%;
 }

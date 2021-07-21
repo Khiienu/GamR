@@ -10,8 +10,8 @@ export default function SingleImage() {
     const photos = useSelector(state => Object.values(state.photo));
     const { id } = useParams();
     // const makeOtherId = other.id
-
-    const photo = photos[0]
+    const photo = photos[id - 1];
+    console.log(photo)
     useEffect(() => {
         dispatch(getAllPhotos(id))
     }, [dispatch])
@@ -19,6 +19,7 @@ export default function SingleImage() {
 
 return (
     <div className="image-container">
+        <h1>This is a test for single photo</h1>
         <img className="single-photo" src={photo?.picture} />
         <div className="photo-caption">{photo?.caption}</div>
     </div>

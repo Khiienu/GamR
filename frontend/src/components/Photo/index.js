@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllPhotos } from '../../store/photo'
 import './photo.css'
+import { Link } from 'react-router-dom'
 
 
 
@@ -12,7 +13,6 @@ export default function Photo() {
     const photos = useSelector(state => Object.values(state.photo));
     const { id } = useParams();
 
-    console.log(photos)
     
     useEffect(() => {
         dispatch(getAllPhotos())
@@ -22,11 +22,14 @@ export default function Photo() {
     }
     return (
         <div className="single-container">
-            {photos.map((photo) => (
-                <div>
-                    <img src={photo.picture}/>
-                </div>
-            ))}
+            <div className="photo-wrapper" >
+                {photos.map((photo) => (
+                    
+                    <Link to={`/photos/${photo.id}`} className="pic-wrapper">
+                        <img className="pic" src={photo.picture}/>
+                    </Link>
+                ))}
+            </div>    
         </div>
     )
 }

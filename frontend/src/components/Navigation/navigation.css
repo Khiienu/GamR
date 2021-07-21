@@ -1,16 +1,44 @@
+.profile-dropdown {
+    list-style-type: none;
+    border: 1px solid black;
+    position: relative;
+}
+
+.profile-btn {
+    background-color: rgba(0, 0, 0, 0);
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 4px;
+    margin: 10px;
+    /* width: 10%; */
+    font-weight: bold;
+}
+
+.nav-btn {
+    border: 1px solid black;
+    padding: 2px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+    margin: 10px;
+}
+
 .navbar {
-    display:flex;
-    justify-content: space-around;
-    align-content: space-around;
-    flex-direction: row;
-    background-color: black;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    background-color: purple;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
 }
-.home-btn {
-    background-color: blue;
+
+#home-btn{
+    justify-content: flex-start;
 }
-.login-btn {
-    background-color: blue;
-}
-.signup-btn {
-    background-color: blue;
+
+.span {
+    width: 85%;
 }
