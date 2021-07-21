@@ -10,6 +10,8 @@ import Homepage from "./components/Homepage";
 import Photo from "./components/Photo"
 import SingleImage from "./components/SingleImage";
 import Upload from "./components/UploadImage";
+import EditImage from "./components/EditImage";
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -39,6 +41,9 @@ function App() {
           </Route>
           <Route path="/upload">
             <Upload />
+          </Route>
+          <Route path="/edit">
+            <EditImage />
           </Route>
         </Switch>
       )}

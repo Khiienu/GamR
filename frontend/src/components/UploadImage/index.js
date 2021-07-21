@@ -16,9 +16,11 @@ export default function Upload() {
     const onSubmit = (e) => {
         e.preventDefault();
         let userId = sessionUser.id;
+        history.push('/photos')
         return dispatch(uploadActions.uploadPhoto({picture, userId, caption}))
     }
 
+    
     return (
         <div className="form_container">
         <div className="title_container">
