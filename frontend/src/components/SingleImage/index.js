@@ -3,6 +3,7 @@ import { useParams, useHistory } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
 import { getAllPhotos } from '../../store/photo'
 import * as sessionActions from "../../store/uploadPhoto"
+import { deletePhoto } from "../../store/uploadPhoto"
 
 export default function SingleImage() {
     const { id } = useParams();
@@ -12,21 +13,28 @@ export default function SingleImage() {
     const photos = useSelector((state) => state.photo);
     const [caption, setCaption] = useState('')
 
-
+    //editing
     useEffect(() => {
         if(photos[id] !== undefined){
             console.log(photos)
             setCaption(photos[id].caption)
         }
     }, [photos, id])
-
+    //photo route
     useEffect(() => {
         dispatch(getAllPhotos())
     }, [dispatch])
-
+    //editing
     const onSubmit = (e) => {
         e.preventDefault();
         dispatch(sessionActions.updatePhoto({id : photos[id].id, caption}))
+        // window.location.replace(`/photos/${id}`)
+        window.location.reload()
+    }
+    //deleting
+    const deleteClick = () =>{
+        dispatch(deletePhoto(id))
+        window.location.replace("/photos")
     }
 
 return ( 
@@ -47,10 +55,17 @@ return (
              </div>
                 <textarea name="caption" type='text' value={caption} onChange={e => setCaption(e.target.value)} required rows="2" cols="20" />
     
-             <button className="button" type="submit" > Edit post</button>
+             <button className="button" type="submit"> Edit post</button>
              </form>
              </>
         )}
+         {photos[id] !== undefined && sessionUser.id === photos[id].userId && (
+             <>
+                <div>
+                <button type='button' onClick={deleteClick}>DELETE</button>
+            </div>
+             </>
+         )}
     </div>
 
 )

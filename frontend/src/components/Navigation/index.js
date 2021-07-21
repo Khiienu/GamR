@@ -27,7 +27,11 @@ function Navigation({ isLoaded }){
   return (
     <div className="navbar">
       <nav className="navbar">
+        {sessionUser !== undefined ? (
+          <NavLink exact to="/photos" className="nav-btn" id="home-btn">Home</NavLink>
+        ): (
           <NavLink exact to="/" className="nav-btn" id="home-btn">Home</NavLink>
+        )}
           <div className="span" />
           {isLoaded && sessionLinks}
       </nav>   
