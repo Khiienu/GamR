@@ -29,7 +29,6 @@ const photosReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_PHOTOS:
             const allPhotos = {}
-            console.log(action.photos.picture)
             action.photos.picture.forEach(photo => {
                 allPhotos[photo.id] = photo
             });
