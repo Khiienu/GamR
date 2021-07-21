@@ -1,11 +1,11 @@
-import './UploadImage.css'
+import './uploadImage.css'
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import * as uploadActions from "../../store/upload";
+import * as uploadActions from "../../store/uploadPhoto";
 import * as sessionActions from '../../store/session';
 import { useHistory, Link } from 'react-router-dom';
 
-function Upload() {
+export default function Upload() {
     const dispatch = useDispatch()
     const [picture, setPictureUrl] = useState('')
     const [caption, setCaption] = useState('')
@@ -16,9 +16,9 @@ function Upload() {
     const onSubmit = (e) => {
         e.preventDefault();
         let userId = sessionUser.id;
-        return dispatch(uploadActions.uploadPhoto({picture, userId, caption, albumId}))
+        return dispatch(uploadActions.uploadPhoto({picture, userId, caption}))
     }
-}
+
     return (
         <div className="form_container">
         <div className="title_container">
@@ -30,22 +30,21 @@ function Upload() {
                 <input
                     className='form-input-url'
                     type='text'
-                    value={imageUrl}
+                    value={picture}
                     onChange={e => setPictureUrl(e.target.value)}
                     placeholder="Image Url"
                     required
                 />
             </div>
-                 <div className="input_field"> <span><i aria-hidden="true" className="album"></i></span>
+                 {/* <div className="input_field"> <span><i aria-hidden="true" className="album"></i></span>
 
                 <input
                     className='form-input-url'
-                    type='text'
                     value={albumId}
                     onChange={e => setAlbumId(e.target.value)}
                     placeholder="Where should I save this?"
                 />
-            </div>
+            </div> */}
             <div className="input_field"> <span><i aria-hidden="true" className="caption"></i></span>
 
                 <textarea
@@ -62,3 +61,4 @@ function Upload() {
             </form>
             </div>
     )
+}

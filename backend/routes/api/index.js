@@ -9,6 +9,7 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const photosRouter = require('./photo.js');
 const singlePhotoRouter = require('./singlePhoto');
+const uploadRouter = require('./upload')
 
 router.use('/session', sessionRouter);
 
@@ -17,6 +18,8 @@ router.use('/users', usersRouter);
 router.use('/photos', photosRouter);
 
 router.use('/singlephoto', singlePhotoRouter)
+
+router.use('/upload', uploadRouter)
 
 router.post('/test', function(req, res) {
     res.json({ requestBody: req.body });
