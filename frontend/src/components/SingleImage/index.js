@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getAllPhotos } from '../../store/photo'
 import * as sessionActions from "../../store/uploadPhoto"
 import { deletePhoto } from "../../store/uploadPhoto"
+import Comments from '../Comments/index.js'
 
 export default function SingleImage() {
     const { id } = useParams();
@@ -66,6 +67,7 @@ return (
             </div>
              </>
          )}
+         <Comments />
     </div>
 
 )
