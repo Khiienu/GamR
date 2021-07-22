@@ -11,9 +11,9 @@ export const postComment = (comment) => ({
     comment
 })
 
-export const getComment = (comment) => ({
+export const getComment = (comments) => ({
     type: GET_COMMENT,
-    comment
+    comments
 })
 
 export const deleteComment = (id) => ({
@@ -35,6 +35,7 @@ export const createCommentThunk = payload => async(dispatch) => {
     })
     const newComment = await res.json();
     dispatch(postComment(newComment))
+    console.log(newComment);
     return newComment
 }
 
@@ -46,7 +47,7 @@ export const getAllComments = (id) => async(dispatch) => {
     if(res.ok) {
         const allComments = await res.json();
         dispatch(getComment(allComments))
-        return allComments
+
     }
 }
 
@@ -80,7 +81,7 @@ export const deleteCommentThunk = (id) => async(dispatch) => {
 const initialState = {}
 
 const commentReducer = (state = initialState, action) => {
-    const newState = {}
+    let newState = {}
     switch (action.type) {
         case POST_COMMENT:
             newState ={
@@ -88,15 +89,25 @@ const commentReducer = (state = initialState, action) => {
                 [action.comment.id]: action.comment 
             }
             return newState
+
+
         case GET_COMMENT:
-            action.comment.forEach(comt => {
-                newState[comt.id] = comt;
+            const allComments = {}
+            action.comments.forEach(comt => {
+                allComments[comt.id] = comt;
             })
-            return {...newState}
+            return {
+                ...newState,
+                ...allComments
+            }
+
+
         case DELETE_COMMENT:
             newState = { ...state}
             delete newState[action.id]
             return newState
+
+
         case UPDATE_COMMENT:
             newState[action.comment.id] = action.comment
             return {
