@@ -34,15 +34,17 @@ export default function Comments() {
                 <input type='text' value={comment} onChange={e => setComment(e.target.value)} placeholder='Comment Here!'/>
                 <button className="button" type="submit"> Post a comment </button>
             </form>
-                <div className='comments'>
-                    {comments !== undefined  && 
-                        Object.values(comments).map(comment => (
-                            <div key={comment?.id} className='single-comment'>
-                                {comment.userId} {comment.comment}
-                                <button className="delete-btn" onClick={() => handleDeleteClick(comment?.id)}>Delete</button>
-                            </div>    
-                        ))}
-                </div>
+            <div className='comments'>
+                {comments !== undefined  && 
+                    Object.values(comments).map(comment => (
+                        <div key={comment?.id} className='single-comment'>
+                            {comment.userId} {comment.comment}
+                            {sessionUser !== undefined && sessionUser.id === comment.userId && (
+                                <button>delete</button>
+                            )}
+                        </div>
+                    ))}
+            </div>
         </div>
 
     )
