@@ -10,7 +10,7 @@ router.post('/', asyncHandler(async (req, res) => {
     const {userId, photoId, comment} = req.body;
 
     let comt = await Comment.create({userId, photoId, comment})
-    return res.json(comt)
+    res.json(comt)
 }))
 
 //Read Comment
@@ -19,16 +19,32 @@ router.get('/:id', asyncHandler(async (req, res) => {
     const comts = await Comment.findAll({
         where: {photoId: id}
     })
-    return res.json(comts)
+    res.json(comts)
+}))
+
+router.get('/pic/:id', asyncHandler(async(req, res) => {
+    const allComments = await Comment.findAll({where: {photoId: req.params.id}})
+    res.json(allComments)
 }))
 
 //Edit/Update Comment
-router.put('/:id', asyncHandler(async (req, res) => {
-    const {id} = req.params;
+// router.put('/:id', asyncHandler(async (req, res) => {
+//     const {id} = req.params;
+//     console.log("this is the backend yo", id)
+//     const {comment} = req.body;
+//     const data = await Comment.findByPk(id)
+//     await data.update( )
+//     res.json(data)
+// }))
+
+router.put('/:id', asyncHandler(async(req, res) => {
     const {comment} = req.body;
-    const data = await Comment.findByPk(id)
-    await data.update({ comment })
-    res.json(data)
+    const commentId = req.params.id
+    console.log(comment)
+    const comt = await Comment.findByPk(commentId)
+    const newComt = await comt.update({comment})
+
+    return res.json(newComt)
 }))
 
 //Delete Comment 
@@ -37,6 +53,6 @@ router.delete('/:id', asyncHandler(async(req, res) => {
     const data = await Comment.destroy({
         where: {id}
     })
-    return res.json(data)
+    res.json(data)
 }))
 module.exports = router 

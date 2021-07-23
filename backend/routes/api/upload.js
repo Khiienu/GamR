@@ -5,6 +5,14 @@ const {User, Photo, Comment} =  require("../../db/models")
 
 const router = express.Router();
 
+router.get('/:id', asyncHandler(async(req, res) => {
+    const {id} = req.params
+    const photo = await Photo.findByPk(id)
+
+    res.json({photo});
+}))
+
+
 router.get('/', asyncHandler(async (req, res) => {
     const photos = await Photo.findAll({
         include: [User]

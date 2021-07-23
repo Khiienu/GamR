@@ -4,10 +4,10 @@ const POST_PHOTO = 'upload/POST_PHOTO'
 const GET_PHOTO = 'upload/GET_PHOTO'
 const DELETE_PHOTO = 'upload/DELETE_PHOTO'
 
-const getPhoto= (photos) => {
+const getPhoto= (photo) => {
     return {
         type: GET_PHOTO,
-        photos
+        photo
     }
 }
 
@@ -25,8 +25,8 @@ const delPhoto = (id) => {
     }
 }
 
-export const getPhotos = () => async (dispatch) => {
-    const res = await fetch('/api/upload')
+export const getPhotos = (id) => async (dispatch) => {
+    const res = await fetch(`/api/upload/${id}`)
 
     if(res.ok) {
         const photos = await res.json()
@@ -73,10 +73,11 @@ const photoReducer = (state = initialState, action ) => {
 
     switch (action.type) {
         case GET_PHOTO:
-            action.photos.forEach((photo) => {
-                newState[photo.id] = photo
-            });
-            return { ...state, ...newState }
+        //    const onePhoto = {...state}
+        //    onePhoto[action.photo.id] = action.photo
+        //     return { ...state, ...onePhoto }
+            const onePhoto = action.photo
+            return onePhoto;
         case POST_PHOTO:
             newState = {
                 ...state,
