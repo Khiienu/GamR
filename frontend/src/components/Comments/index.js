@@ -49,7 +49,7 @@ export default function Comments() {
                                     <div className="comment-change">
                                         <textarea type='text' value={editComment} onChange={e => setEditComment(e.target.value)} required rows="2" cols="20" />
                                     </div>
-                                        <button className="edit-btn" type="submit">Edit Comment </button>
+                                        <button className="edit-btn" type="submit">Edit Comments </button>
                                 </form>
                                 </div>
                             )}
