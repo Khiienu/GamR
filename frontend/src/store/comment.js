@@ -2,29 +2,35 @@ import { getJSON } from "js-cookie";
 import { csrfFetch } from "./csrf";
 
 const POST_COMMENT = 'comment/POST_COMMENT';
-const GET_COMMENT = 'comment/GET_COMMENT';
 const DELETE_COMMENT = 'comment/DELETE_COMMENT';
 const UPDATE_COMMENT = 'comment/UPDATE_COMMENT';
+const EVERY_COMMENT = 'comment/EVERY_COMMENT';
 
-export const postComment = (comment) => ({
+const postComment = (comment) => ({
     type: POST_COMMENT,
     comment
 })
 
-export const getComment = (comments) => ({
-    type: GET_COMMENT,
-    comments
-})
+// export const getComment = (comments) => ({
+//     type: GET_COMMENT,
+//     comments
+// })
 
-export const deleteComment = (id) => ({
+const deleteComment = (id) => ({
     type: DELETE_COMMENT,
     id
 })
 
-export const updateComment = (comment) => ({
+const updateComment = (comment, id ) => ({
     type: UPDATE_COMMENT,
-    comment
+    comment,
+    id
 })
+
+const everyComment = (comments) => ({
+    type: EVERY_COMMENT,
+    comments
+}) 
 
 //create comment 
 
@@ -41,26 +47,34 @@ export const createCommentThunk = payload => async(dispatch) => {
 
 //get comments 
 
-export const getAllComments = (id) => async(dispatch) => {
-    const res = await csrfFetch(`/api/comments/${id}`)
+// export const getAllComments = (id) => async(dispatch) => {
+//     const res = await csrfFetch(`/api/comments/${id}`)
 
+//     if(res.ok) {
+//         const allComments = await res.json();
+//         dispatch(getComment(allComments))
+
+//     }
+// }
+
+
+export const everyCommentThunk = () => async(dispatch) => {
+    const res = await csrfFetch('/api/comments/')
     if(res.ok) {
-        const allComments = await res.json();
-        dispatch(getComment(allComments))
-
+        const allComments = await res.json()
+        dispatch(everyComment(allComments))
     }
 }
-
 //edit comment
 
 export const updateCommentThunk = (id, comment) => async(dispatch) => {
-    const res = await csrfFetch(`/api/comments`, {
+    const res = await csrfFetch(`/api/comments/${id}`, {
         method: 'PATCH',
-        body: JSON.stringify({id, comment})
+        body: JSON.stringify({comment})
     })
-        const data = await res.json();
+        const data = await res.json(id);
+        console.log("this is frontend yo", id)
         dispatch(updateComment(data))
-        return data;
 }
 
 //delete comment 
@@ -87,9 +101,8 @@ const commentReducer = (state = initialState, action) => {
                 [action.comment.id]: action.comment 
             }
             return newState
-
-
-        case GET_COMMENT:
+    
+        case EVERY_COMMENT:
             const allComments = {}
             action.comments.forEach(comt => {
                 allComments[comt.id] = comt;
@@ -99,7 +112,6 @@ const commentReducer = (state = initialState, action) => {
                 ...allComments
             }
 
-
         case DELETE_COMMENT:
             newState = { ...state}
             delete newState[action.id]
@@ -107,17 +119,13 @@ const commentReducer = (state = initialState, action) => {
 
 
         case UPDATE_COMMENT:
-            newState[action.comment.id] = action.comment
             return {
-                ...newState
+                ...state,
+                [action.comment.id]: action.comment
             }
             default:
                 return state;
         
-            // const newEditedComment = {...state}
-            // newEditedComment[action.comment.id] = action.comment
-            // default:
-            //     return newEditedComment
     }
 }
 

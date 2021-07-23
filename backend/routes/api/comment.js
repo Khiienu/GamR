@@ -10,7 +10,7 @@ router.post('/', asyncHandler(async (req, res) => {
     const {userId, photoId, comment} = req.body;
 
     let comt = await Comment.create({userId, photoId, comment})
-    return res.json(comt)
+    res.json(comt)
 }))
 
 //Read Comment
@@ -19,12 +19,18 @@ router.get('/:id', asyncHandler(async (req, res) => {
     const comts = await Comment.findAll({
         where: {photoId: id}
     })
-    return res.json(comts)
+    res.json(comts)
+}))
+
+router.get('/', asyncHandler(async(req, res) => {
+    const allComments = await Comment.findAll()
+    res.json(allComments)
 }))
 
 //Edit/Update Comment
-router.put('/:id', asyncHandler(async (req, res) => {
+router.patch('/:id', asyncHandler(async (req, res) => {
     const {id} = req.params;
+    console.log("this is the backend yo", id)
     const {comment} = req.body;
     const data = await Comment.findByPk(id)
     await data.update({ comment })
@@ -37,6 +43,6 @@ router.delete('/:id', asyncHandler(async(req, res) => {
     const data = await Comment.destroy({
         where: {id}
     })
-    return res.json(data)
+    res.json(data)
 }))
 module.exports = router 

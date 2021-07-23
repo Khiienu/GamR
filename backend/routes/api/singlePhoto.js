@@ -6,10 +6,10 @@ const { User, Photo } = require('../../db/models')
 const router = express.Router()
 
 router.get('/:id', asyncHandler(async(req, res) => {
+    const {id} = req.params
+    const photo = await Photo.findByPk(id)
 
-    const photo = await Photo.findByPk(req.params.id)
-
-    return res.json({photo});
+    res.json({photo});
 }))
 
 module.exports = router;
