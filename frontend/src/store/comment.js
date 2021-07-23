@@ -43,17 +43,7 @@ export const createCommentThunk = payload => async(dispatch) => {
     return newComment
 }
 
-//get comments 
 
-// export const getAllComments = (id) => async(dispatch) => {
-//     const res = await csrfFetch(`/api/comments/${id}`)
-
-//     if(res.ok) {
-//         const allComments = await res.json();
-//         dispatch(getComment(allComments))
-
-//     }
-// }
 
 
 export const everyCommentThunk = (id) => async(dispatch) => {
