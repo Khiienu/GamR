@@ -12,10 +12,10 @@ export default function SingleImage() {
     const dispatch = useDispatch();
 
     const sessionUser = useSelector((state) => state.session.user);
-    const uploadedPhoto = useSelector((state) => Object.values(state.upload));
+    const uploadedPhoto = useSelector((state) => state.photo);
    
     const [caption, setCaption] = useState('')
-    console.log(uploadedPhoto[0].photos.photo, "this is photo")
+    console.log(uploadedPhoto, "this is photo")
     //editing
     useEffect(() => {
         if(uploadedPhoto[id] !== undefined){
