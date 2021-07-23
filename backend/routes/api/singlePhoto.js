@@ -9,7 +9,7 @@ router.get('/:id', asyncHandler(async(req, res) => {
     const {id} = req.params
     const photo = await Photo.findByPk(id)
 
-    res.json({photo});
+    res.json(photo);
 }))
 
 module.exports = router;

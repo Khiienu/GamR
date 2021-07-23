@@ -12,14 +12,14 @@ export default function SingleImage() {
     const dispatch = useDispatch();
 
     const sessionUser = useSelector((state) => state.session.user);
-    const uploadedPhoto = useSelector((state) => Object.values(state.upload));
+    const uploadedPhoto = useSelector((state) => state.upload?.photo);
    
     const [caption, setCaption] = useState('')
     console.log(uploadedPhoto, "this is photo")
     //editing
     useEffect(() => {
-        if(uploadedPhoto[id] !== undefined){
-            setCaption(uploadedPhoto[id].caption)
+        if(uploadedPhoto !== undefined){
+            setCaption(uploadedPhoto.caption)
         }
     }, [uploadedPhoto, id])
     //photo route
@@ -29,7 +29,7 @@ export default function SingleImage() {
     //editing
     const onSubmit = (e) => {
         e.preventDefault();
-        dispatch(sessionActions.updatePhoto({id : uploadedPhoto[id].id, caption}))
+        dispatch(sessionActions.updatePhoto({id : uploadedPhoto.id, caption}))
         // window.location.replace(`/uploadedPhoto/${id}`)
         window.location.reload()
     }
@@ -42,13 +42,13 @@ export default function SingleImage() {
 return ( 
     <div className="image-container">
         <h1>This is a test for single photo</h1>
-        {uploadedPhoto[id] !== undefined && (
+        {uploadedPhoto !== undefined && (
             <>
-            <img className="single-photo" src={uploadedPhoto.photos.picture} />
-            <div className="photo-caption">{uploadedPhoto.photos.caption}</div>
+            <img className="single-photo" src={uploadedPhoto.picture} />
+            <div className="photo-caption">{uploadedPhoto.caption}</div>
             </>
         )}
-        {uploadedPhoto[id] !== undefined && sessionUser.id === uploadedPhoto[id].userId && (
+        {uploadedPhoto !== undefined && sessionUser.id === uploadedPhoto.userId && (
             <>    
              <button>Edit Caption</button>
              <form onSubmit={onSubmit} className="upload-form">
@@ -61,7 +61,7 @@ return (
              </form>
              </>
         )}
-         {uploadedPhoto[id] !== undefined && sessionUser.id === uploadedPhoto[id].userId && (
+         {uploadedPhoto!== undefined && sessionUser.id === uploadedPhoto.userId && (
              <>
                 <div>
                 <button type='button' onClick={deleteClick}>DELETE</button>

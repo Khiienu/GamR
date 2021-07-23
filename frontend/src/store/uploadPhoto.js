@@ -30,7 +30,7 @@ export const getPhotos = (id) => async (dispatch) => {
 
     if(res.ok) {
         const photos = await res.json()
-        dispatch(getPhoto({photos}))
+        dispatch(getPhoto(photos))
     }
 }
 
@@ -76,8 +76,7 @@ const photoReducer = (state = initialState, action ) => {
         //    const onePhoto = {...state}
         //    onePhoto[action.photo.id] = action.photo
         //     return { ...state, ...onePhoto }
-            const onePhoto = Object.assign({} , state)
-            onePhoto.selectedPhoto = action.photo
+            const onePhoto = action.photo
             return onePhoto;
         case POST_PHOTO:
             newState = {

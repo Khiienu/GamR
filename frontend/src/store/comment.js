@@ -58,8 +58,8 @@ export const createCommentThunk = payload => async(dispatch) => {
 // }
 
 
-export const everyCommentThunk = () => async(dispatch) => {
-    const res = await csrfFetch('/api/comments/')
+export const everyCommentThunk = (id) => async(dispatch) => {
+    const res = await csrfFetch(`/api/comments/pic/${id}`)
     if(res.ok) {
         const allComments = await res.json()
         dispatch(everyComment(allComments))

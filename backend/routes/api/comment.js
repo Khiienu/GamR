@@ -22,8 +22,8 @@ router.get('/:id', asyncHandler(async (req, res) => {
     res.json(comts)
 }))
 
-router.get('/', asyncHandler(async(req, res) => {
-    const allComments = await Comment.findAll()
+router.get('/pic/:id', asyncHandler(async(req, res) => {
+    const allComments = await Comment.findAll({where: {photoId: req.params.id}})
     res.json(allComments)
 }))
 

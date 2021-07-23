@@ -29,7 +29,7 @@ export default function Comments() {
     }
     
     useEffect(() => {
-        dispatch(everyCommentThunk())
+        dispatch(everyCommentThunk(id))
     }, [dispatch])
 
     return (
