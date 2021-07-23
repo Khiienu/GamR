@@ -4,25 +4,25 @@ import { useParams } from 'react-router';
 import {  updateCommentThunk} from "../../store/comment";
 
 
-export default function EditComment() {
-    const { id } = useParams();
+export default function EditComment(id) {
     const dispatch = useDispatch();
     const sessionUser = useSelector((state) => state.session.user);
-    const [commentText, setCommentText] = useState(''); 
+
+    const [comment, setComment] = useState(''); 
     
-    const onSubmitTwo =(e) => {
+    const onSubmit =(e) => {
         e.preventDefault();
         // const updateInfo = {
             //     comment,
             //     id: comment.id
             // }
-            dispatch(updateCommentThunk(commentText, id))
+            dispatch(updateCommentThunk({commentId: id, comment: comment}))
         }
         
     return (
-    <form onSubmit={onSubmitTwo} className="edit-comment">
+    <form onSubmit={onSubmit} className="edit-comment">
         <div className="comment-change">
-            <textarea type='text' value={commentText} onChange={e => setCommentText(e.target.value)} required rows="2" cols="20" />
+            <textarea type='text' value={comment} onChange={e => setComment(e.target.value)} required rows="2" cols="20" />
         </div>
             <button className="edit-btn" type="submit">Edit Comments </button>
     </form>

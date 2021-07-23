@@ -15,7 +15,7 @@ export default function SingleImage() {
     const uploadedPhoto = useSelector((state) => state.upload?.photo);
    
     const [caption, setCaption] = useState('')
-    console.log(uploadedPhoto, "this is photo")
+    
     //editing
     useEffect(() => {
         if(uploadedPhoto !== undefined){

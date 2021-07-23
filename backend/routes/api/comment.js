@@ -28,13 +28,22 @@ router.get('/pic/:id', asyncHandler(async(req, res) => {
 }))
 
 //Edit/Update Comment
-router.patch('/:id', asyncHandler(async (req, res) => {
-    const {id} = req.params;
-    console.log("this is the backend yo", id)
+// router.put('/:id', asyncHandler(async (req, res) => {
+//     const {id} = req.params;
+//     console.log("this is the backend yo", id)
+//     const {comment} = req.body;
+//     const data = await Comment.findByPk(id)
+//     await data.update( )
+//     res.json(data)
+// }))
+
+router.put('/:id', asyncHandler(async(req, res) => {
     const {comment} = req.body;
-    const data = await Comment.findByPk(id)
-    await data.update({ comment })
-    res.json(data)
+    const {commentId} = req.params
+    const comt = await Comment.findByPk(commentId)
+    // const newComt = await comt.update(comment)
+
+    return res.json(comt)
 }))
 
 //Delete Comment 
