@@ -13,12 +13,11 @@ export default function Comments() {
     
 
 
-    const onSubmit = (e) => {
+    const onSubmit = async(e) => {
         e.preventDefault();
         const userId = sessionUser.id;
-        dispatch(createCommentThunk({userId, photoId: id, comment }))
-        window.location.reload()
-    }
+        await dispatch(createCommentThunk({userId, photoId: id, comment }))
+        await dispatch(getAllComments(id))
 
     const handleDeleteClick = (id) => {
         dispatch(deleteCommentThunk(id))
@@ -34,16 +33,19 @@ export default function Comments() {
                 <input type='text' value={comment} onChange={e => setComment(e.target.value)} placeholder='Comment Here!'/>
                 <button className="button" type="submit"> Post a comment </button>
             </form>
-                <div className='comments'>
-                    {comments && 
-                        comments.map(comment => (
-                            <div key={comment?.id} className='single-comment'>
-                                {comment.userId} {comment.comment}
-                                <button className="delete-btn" onClick={() => handleDeleteClick(comment?.id)}>Delete</button>
-                            </div>    
-                        ))}
-                </div>
+            <div className='comments'>
+            {comments !== undefined  && 
+                        Object.values(comments).map(comment => (
+                        <div key={comment?.id} className='single-comment'>
+                            {comment.userId} {comment.comment}
+                            {sessionUser !== undefined && sessionUser.id === comment.userId && (
+                                <button>delete</button>
+                            )}
+                        </div>
+                    ))}
+            </div>
         </div>
 
     )
+}
 }
