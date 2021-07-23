@@ -2,29 +2,33 @@ import { getJSON } from "js-cookie";
 import { csrfFetch } from "./csrf";
 
 const POST_COMMENT = 'comment/POST_COMMENT';
-const GET_COMMENT = 'comment/GET_COMMENT';
 const DELETE_COMMENT = 'comment/DELETE_COMMENT';
 const UPDATE_COMMENT = 'comment/UPDATE_COMMENT';
+const EVERY_COMMENT = 'comment/EVERY_COMMENT';
 
-export const postComment = (comment) => ({
+const postComment = (comment) => ({
     type: POST_COMMENT,
     comment
 })
 
-export const getComment = (comment) => ({
-    type: GET_COMMENT,
-    comment
-})
+// export const getComment = (comments) => ({
+//     type: GET_COMMENT,
+//     comments
+// })
 
-export const deleteComment = (id) => ({
+const deleteComment = (id) => ({
     type: DELETE_COMMENT,
     id
 })
 
-export const updateComment = (comment) => ({
+const updateComment = (comment ) => ({
     type: UPDATE_COMMENT,
     comment
 })
+const everyComment = (comments) => ({
+    type: EVERY_COMMENT,
+    comments
+}) 
 
 //create comment 
 
@@ -35,33 +39,41 @@ export const createCommentThunk = payload => async(dispatch) => {
     })
     const newComment = await res.json();
     dispatch(postComment(newComment))
+    console.log(newComment);
     return newComment
 }
 
 //get comments 
 
-export const getAllComments = (id) => async(dispatch) => {
-    const res = await csrfFetch(`/api/comments/${id}`)
+// export const getAllComments = (id) => async(dispatch) => {
+//     const res = await csrfFetch(`/api/comments/${id}`)
 
+//     if(res.ok) {
+//         const allComments = await res.json();
+//         dispatch(getComment(allComments))
+
+//     }
+// }
+
+
+export const everyCommentThunk = (id) => async(dispatch) => {
+    const res = await csrfFetch(`/api/comments/pic/${id}`)
     if(res.ok) {
-        const allComments = await res.json();
-        dispatch(getComment(allComments))
-        return allComments
+        const allComments = await res.json()
+        dispatch(everyComment(allComments))
     }
 }
-
 //edit comment
 
-export const updateCommentThunk = (id, comment) => async(dispatch) => {
-    const res = await csrfFetch(`/api/comments/${id}`, {
+export const updateCommentThunk = ({commentId, comment}) => async(dispatch) => {
+    // const {id, comment} = comment;
+    const res = await csrfFetch(`/api/comments/${commentId}`, {
         method: 'PUT',
-        body: JSON.stringify({id, comment})
+        body: JSON.stringify({comment})
     })
-
-    if (res.ok) {
         const data = await res.json();
+
         dispatch(updateComment(data))
-    }
 }
 
 //delete comment 
@@ -80,7 +92,7 @@ export const deleteCommentThunk = (id) => async(dispatch) => {
 const initialState = {}
 
 const commentReducer = (state = initialState, action) => {
-    const newState = {}
+    let newState = {}
     switch (action.type) {
         case POST_COMMENT:
             newState ={
@@ -88,22 +100,31 @@ const commentReducer = (state = initialState, action) => {
                 [action.comment.id]: action.comment 
             }
             return newState
-        case GET_COMMENT:
-            action.comment.forEach(comt => {
-                newState[comt.id] = comt;
+    
+        case EVERY_COMMENT:
+            const allComments = {}
+            action.comments.forEach(comt => {
+                allComments[comt.id] = comt;
             })
-            return {...newState}
+            return {
+                ...newState,
+                ...allComments
+            }
+
         case DELETE_COMMENT:
             newState = { ...state}
             delete newState[action.id]
             return newState
+
+
         case UPDATE_COMMENT:
-            newState[action.comment.id] = action.comment
             return {
-                ...newState
+                ...state,
+                [action.comment.id]: action.comment
             }
             default:
                 return state;
+        
     }
 }
 
