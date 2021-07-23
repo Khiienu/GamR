@@ -10,6 +10,7 @@ export default function Comments() {
     const sessionUser = useSelector((state) => state.session.user);
     const comments = useSelector(state => state.comment)
     const [comment, setComment] = useState('');
+    const [editComment, setEditComment ] = useState('');
     
 
 
@@ -18,15 +19,17 @@ export default function Comments() {
         const userId = sessionUser.id;
         await dispatch(createCommentThunk({userId, photoId: id, comment }))
         await dispatch(getAllComments(id))
+        await dispatch(updateCommentThunk({editComment, id: comment.id}))
     }
 
     const handleDeleteClick = (id) => {
         dispatch(deleteCommentThunk(id))
     }
+
     useEffect(() => {
         dispatch(getAllComments(id))
     }, [dispatch,])
-    
+
 
     return (
         <div className='comment-container'>
@@ -40,7 +43,15 @@ export default function Comments() {
                         <div key={comment?.id} className='single-comment'>
                             {comment.userId} {comment.comment}
                             {sessionUser !== undefined && sessionUser.id === comment.userId && (
-                                <button>delete</button>
+                                <div className="user-comment-option" >
+                                <button className="del-btn" onClick={() => handleDeleteClick(comment?.id)}>delete</button>
+                                <form onSubmit={updateCommentThunk} className="edit-comment">
+                                    <div className="comment-change">
+                                        <textarea type='text' value={editComment} onChange={e => setEditComment(e.target.value)} required rows="2" cols="20" />
+                                    </div>
+                                        <button className="edit-btn" type="submit">Edit Comment </button>
+                                </form>
+                                </div>
                             )}
                         </div>
                     ))}

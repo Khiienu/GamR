@@ -54,15 +54,13 @@ export const getAllComments = (id) => async(dispatch) => {
 //edit comment
 
 export const updateCommentThunk = (id, comment) => async(dispatch) => {
-    const res = await csrfFetch(`/api/comments/${id}`, {
-        method: 'PUT',
+    const res = await csrfFetch(`/api/comments`, {
+        method: 'PATCH',
         body: JSON.stringify({id, comment})
     })
-
-    if (res.ok) {
         const data = await res.json();
         dispatch(updateComment(data))
-    }
+        return data;
 }
 
 //delete comment 
@@ -115,6 +113,11 @@ const commentReducer = (state = initialState, action) => {
             }
             default:
                 return state;
+        
+            // const newEditedComment = {...state}
+            // newEditedComment[action.comment.id] = action.comment
+            // default:
+            //     return newEditedComment
     }
 }
 
