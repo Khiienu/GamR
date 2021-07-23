@@ -77,7 +77,7 @@ const photoReducer = (state = initialState, action ) => {
         //    onePhoto[action.photo.id] = action.photo
         //     return { ...state, ...onePhoto }
             const onePhoto = Object.assign({} , state)
-            onePhoto.photos = action.photo
+            onePhoto.selectedPhoto = action.photo
             return onePhoto;
         case POST_PHOTO:
             newState = {
