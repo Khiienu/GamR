@@ -48,7 +48,7 @@ export default function Comments() {
                                 <div className="user-comment-option" >
                                 <button className="del-btn" onClick={() =>handleDeleteClick(comment?.id)}>delete</button>
                                 </div>
-                                <EditComment />
+                                <EditComment id={comment.id}/>
                                 </>
                             )}
                         </div>

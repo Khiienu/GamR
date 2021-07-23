@@ -39,11 +39,12 @@ router.get('/pic/:id', asyncHandler(async(req, res) => {
 
 router.put('/:id', asyncHandler(async(req, res) => {
     const {comment} = req.body;
-    const {commentId} = req.params
+    const commentId = req.params.id
+    console.log(comment)
     const comt = await Comment.findByPk(commentId)
-    // const newComt = await comt.update(comment)
+    const newComt = await comt.update({comment})
 
-    return res.json(comt)
+    return res.json(newComt)
 }))
 
 //Delete Comment 

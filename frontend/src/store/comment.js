@@ -21,9 +21,8 @@ const deleteComment = (id) => ({
     id
 })
 
-const updateComment = (id, comment ) => ({
+const updateComment = (comment ) => ({
     type: UPDATE_COMMENT,
-    id,
     comment
 })
 const everyComment = (comments) => ({
@@ -66,9 +65,9 @@ export const everyCommentThunk = (id) => async(dispatch) => {
 }
 //edit comment
 
-export const updateCommentThunk = (id, comment) => async(dispatch) => {
+export const updateCommentThunk = ({commentId, comment}) => async(dispatch) => {
     // const {id, comment} = comment;
-    const res = await csrfFetch(`/api/comments/${id}`, {
+    const res = await csrfFetch(`/api/comments/${commentId}`, {
         method: 'PUT',
         body: JSON.stringify({comment})
     })

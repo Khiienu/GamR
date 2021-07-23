@@ -4,19 +4,13 @@ import { useParams } from 'react-router';
 import {  updateCommentThunk} from "../../store/comment";
 
 
-export default function EditComment(id) {
+export default function EditComment({id}) {
     const dispatch = useDispatch();
-    const sessionUser = useSelector((state) => state.session.user);
-
     const [comment, setComment] = useState(''); 
     
-    const onSubmit =(e) => {
+    const onSubmit =async(e) => {
         e.preventDefault();
-        // const updateInfo = {
-            //     comment,
-            //     id: comment.id
-            // }
-            dispatch(updateCommentThunk({commentId: id, comment: comment}))
+            await dispatch(updateCommentThunk({commentId: id, comment: comment}))
         }
         
     return (
