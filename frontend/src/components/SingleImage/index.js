@@ -12,7 +12,7 @@ export default function SingleImage() {
     const dispatch = useDispatch();
 
     const sessionUser = useSelector((state) => state.session.user);
-    const uploadedPhoto = useSelector((state) => state.photo);
+    const uploadedPhoto = useSelector((state) => Object.values(state.upload));
    
     const [caption, setCaption] = useState('')
     console.log(uploadedPhoto, "this is photo")
