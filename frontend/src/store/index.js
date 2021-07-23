@@ -7,7 +7,7 @@ import commentReducer from './comment';
 const rootReducer = combineReducers({
     session: sessionReducer,
     photo: photosReducer,
-    comment: commentReducer,
+    comment: commentReducer
 });
 
 

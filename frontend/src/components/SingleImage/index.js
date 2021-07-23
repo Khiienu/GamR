@@ -17,7 +17,6 @@ export default function SingleImage() {
     //editing
     useEffect(() => {
         if(photos[id] !== undefined){
-            console.log(photos)
             setCaption(photos[id].caption)
         }
     }, [photos, id])

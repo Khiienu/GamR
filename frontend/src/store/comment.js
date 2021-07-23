@@ -11,7 +11,7 @@ export const postComment = (comment) => ({
     comment
 })
 
-export const getComment = (comment) => ({
+export const getComment = (comments) => ({
     type: GET_COMMENT,
     comments
 })
@@ -35,6 +35,7 @@ export const createCommentThunk = payload => async(dispatch) => {
     })
     const newComment = await res.json();
     dispatch(postComment(newComment))
+    console.log(newComment);
     return newComment
 }
 
@@ -52,15 +53,13 @@ export const getAllComments = (id) => async(dispatch) => {
 //edit comment
 
 export const updateCommentThunk = (id, comment) => async(dispatch) => {
-    const res = await csrfFetch(`/api/comments/${id}`, {
-        method: 'PUT',
+    const res = await csrfFetch(`/api/comments`, {
+        method: 'PATCH',
         body: JSON.stringify({id, comment})
     })
-
-    if (res.ok) {
         const data = await res.json();
         dispatch(updateComment(data))
-    }
+        return data;
 }
 
 //delete comment 
@@ -87,6 +86,8 @@ const commentReducer = (state = initialState, action) => {
                 [action.comment.id]: action.comment 
             }
             return newState
+
+
         case GET_COMMENT:
             const allComments = {}
             action.comments.forEach(comt => {
@@ -96,10 +97,14 @@ const commentReducer = (state = initialState, action) => {
                 ...newState,
                 ...allComments
             }
+
+
         case DELETE_COMMENT:
             newState = { ...state}
             delete newState[action.id]
             return newState
+
+
         case UPDATE_COMMENT:
             newState[action.comment.id] = action.comment
             return {
@@ -107,6 +112,11 @@ const commentReducer = (state = initialState, action) => {
             }
             default:
                 return state;
+        
+            // const newEditedComment = {...state}
+            // newEditedComment[action.comment.id] = action.comment
+            // default:
+            //     return newEditedComment
     }
 }
 
