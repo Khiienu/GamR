@@ -6,6 +6,7 @@ import * as sessionActions from "../../store/uploadPhoto"
 import { deletePhoto } from "../../store/uploadPhoto"
 import Comments from '../Comments/index.js'
 import { getPhotos } from '../../store/uploadPhoto'
+import './singleImage.css'
 
 export default function SingleImage() {
     const { id } = useParams();
@@ -41,11 +42,11 @@ export default function SingleImage() {
 
 return ( 
     <div className="image-container">
-        <h1>This is a test for single photo</h1>
         {uploadedPhoto !== undefined && (
             <>
-            <img className="single-photo" src={uploadedPhoto.picture} />
+            
             <div className="photo-caption">{uploadedPhoto.caption}</div>
+            <img className="single-photo" src={uploadedPhoto.picture} />
             </>
         )}
         {uploadedPhoto !== undefined && sessionUser.id === uploadedPhoto.userId && (

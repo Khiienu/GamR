@@ -5,6 +5,8 @@ import { createCommentThunk, updateCommentThunk, deleteCommentThunk} from "../..
 import * as sessionActions from "../../store/uploadPhoto"
 import { everyCommentThunk } from "../../store/comment";
 import EditComment from "../EditComment";
+
+import './comment.css'
 export default function Comments() {
     const { id } = useParams();
     const dispatch = useDispatch();
@@ -12,7 +14,6 @@ export default function Comments() {
     const comments = useSelector(state => state.comment)
     const [createComment, setCreateComment] = useState('');
     const userId = sessionUser.id;
-   
     const onSubmit = (e) => {
         e.preventDefault();
         
@@ -42,7 +43,7 @@ export default function Comments() {
                 {comments !== undefined  && 
                     Object.values(comments).map(comment => (
                         <div key={comment?.id} className='single-comment'>
-                            {comment.userId} {comment.comment}
+                                {comment.comment}
                             {sessionUser !== undefined && sessionUser.id === comment.userId && (
                                 <>
                                 <div className="user-comment-option" >
