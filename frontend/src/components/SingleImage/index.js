@@ -36,7 +36,7 @@ export default function SingleImage() {
     //deleting
     const deleteClick = () =>{
         dispatch(deletePhoto(id))
-        window.location.replace("/uploadedPhoto")
+        window.location.replace("/photos")
     }
 
 return ( 
