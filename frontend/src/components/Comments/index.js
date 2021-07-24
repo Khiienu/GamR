@@ -23,6 +23,7 @@ export default function Comments() {
             photoId: id
         }
         dispatch(createCommentThunk(createinfo))
+        window.location.reload();
     }
     
     const handleDeleteClick = (id) => {
