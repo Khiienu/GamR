@@ -1,34 +1,37 @@
 import { useEffect, useState } from 'react'
 import { useParams, useHistory } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux'
-import { getAllPhotos } from '../../store/photo'
+// import { getAlluploadedPhoto } from '../../store/photo'
 import * as sessionActions from "../../store/uploadPhoto"
 import { deletePhoto } from "../../store/uploadPhoto"
 import Comments from '../Comments/index.js'
+import { getPhotos } from '../../store/uploadPhoto'
+import './singleImage.css'
 
 export default function SingleImage() {
     const { id } = useParams();
     const dispatch = useDispatch();
 
     const sessionUser = useSelector((state) => state.session.user);
-    const photos = useSelector((state) => state.photo);
+    const uploadedPhoto = useSelector((state) => state.upload?.photo);
+   
     const [caption, setCaption] = useState('')
-
+    
     //editing
     useEffect(() => {
-        if(photos[id] !== undefined){
-            setCaption(photos[id].caption)
+        if(uploadedPhoto !== undefined){
+            setCaption(uploadedPhoto.caption)
         }
-    }, [photos, id])
+    }, [uploadedPhoto, id])
     //photo route
-    useEffect(() => {
-        dispatch(getAllPhotos())
+    useEffect(async() => {
+        await dispatch(getPhotos(id))
     }, [dispatch])
     //editing
     const onSubmit = (e) => {
         e.preventDefault();
-        dispatch(sessionActions.updatePhoto({id : photos[id].id, caption}))
-        // window.location.replace(`/photos/${id}`)
+        dispatch(sessionActions.updatePhoto({id : uploadedPhoto.id, caption}))
+        // window.location.replace(`/uploadedPhoto/${id}`)
         window.location.reload()
     }
     //deleting
@@ -39,14 +42,14 @@ export default function SingleImage() {
 
 return ( 
     <div className="image-container">
-        <h1>This is a test for single photo</h1>
-        {photos[id] !== undefined && (
+        {uploadedPhoto !== undefined && (
             <>
-            <img className="single-photo" src={photos[id].picture} />
-            <div className="photo-caption">{photos[id].caption}</div>
+            
+            <div className="photo-caption">{uploadedPhoto.caption}</div>
+            <img className="single-photo" src={uploadedPhoto.picture} />
             </>
         )}
-        {photos[id] !== undefined && sessionUser.id === photos[id].userId && (
+        {uploadedPhoto !== undefined && sessionUser.id === uploadedPhoto.userId && (
             <>    
              <button>Edit Caption</button>
              <form onSubmit={onSubmit} className="upload-form">
@@ -59,7 +62,7 @@ return (
              </form>
              </>
         )}
-         {photos[id] !== undefined && sessionUser.id === photos[id].userId && (
+         {uploadedPhoto!== undefined && sessionUser.id === uploadedPhoto.userId && (
              <>
                 <div>
                 <button type='button' onClick={deleteClick}>DELETE</button>

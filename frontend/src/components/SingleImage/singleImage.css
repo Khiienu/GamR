@@ -9,14 +9,17 @@
 }
 
 
-.header {
-    animation: color-change 10s infinite;
-}
-
-.wrapper {
-    height: 887px;
+.image-container {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-content: center;
     align-items: center;
     background-color: rgba(72,35,97,255);
+}
+
+.photo-caption {
+    animation: color-change 10s infinite;
+    font-size: 50px;
+    padding: 40px;
 }

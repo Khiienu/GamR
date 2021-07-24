@@ -1,7 +1,10 @@
 .photo-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-
+    line-height:0;
+    -webkit-column-count:5;
+    -moz-column-count:5;
+    -moz-column-gap:5px;
+    column-count:5;
+    column-gap:5px;
 }
 
 .pic-wrapper {
@@ -10,8 +13,9 @@
 }
 
 .pic {
-    height: 100%;
-    width: 100%;
+    width: 100% !important;
+   height: auto !important;
+   margin-bottom:5px; 
 }
 
 .upload-link {
@@ -23,6 +27,7 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    background-color: rgba(72,35,97,255);
 }
 
 .upload-header {
@@ -35,4 +40,7 @@
     color: black;
     cursor: pointer;
     margin: 10px;
+}
+.pic {
+    border-radius: 25px;
 }
